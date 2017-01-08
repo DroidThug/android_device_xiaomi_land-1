@@ -46,3 +46,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196609 \
     ro.sf.lcd_density=320
+
+# Miracast
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.debug.wfd.enable=1
