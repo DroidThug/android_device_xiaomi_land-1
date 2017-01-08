@@ -43,6 +43,10 @@ if [ "$prev_version_info" != "$cur_version_info" ]; then
     cp -r /firmware/image/modem_pr/mcfg/configs/* /data/misc/radio/modem_config
     chown -hR radio.radio /data/misc/radio/modem_config
     cp /firmware/verinfo/ver_info.txt /data/misc/radio/ver_info.txt
-    chown radio.radio /data/misc/radio/ver_info.txt
+    chown radio.radio /data/misc/radio/ver_info.txt fi 
+echo 1 > /data/misc/radio/copy_complete 
+if [ -d /sys/class/goodix_fp ]; then
+ setprop persist.sys.fp.sensor goodix
+else
+ setprop persist.sys.fp.sensor fpc
 fi
-echo 1 > /data/misc/radio/copy_complete

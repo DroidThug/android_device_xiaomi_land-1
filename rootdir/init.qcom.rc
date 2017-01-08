@@ -67,6 +67,7 @@ on post-fs-data
     mkdir /data/misc/stargate/bg_estimation 0770 system system
     mkdir /data/misc/stargate/calib_test 0770 system system
     mkdir /data/misc/stargate/database 0770 system system
+    mkdir /data/goodix 0770 system system
 
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
@@ -220,6 +221,7 @@ on post-fs-data
     mkdir /data/misc/sensors
     chmod 0775 /data/misc/sensors
 
+    
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -854,8 +856,8 @@ service fingerprintd /system/bin/fingerprintd
     disabled
 
 service gx_fpd /system/bin/gx_fpd
-     class core
-     user root
+     class late_start
+     user system
      group system system
      disabled
 
@@ -863,10 +865,9 @@ on property:persist.sys.fp.vendor=switchf
     stop gx_fpd
     setprop persist.sys.fp.vendor searchf
     start fingerprintd
-    setprop ro.boot.fpsensor fpc
 
 on property:persist.sys.fp.vendor=goodix
-    setprop ro.boot.fpsensor gdx
+    start gx_fpd
 
 on property:persist.sys.fp.onstart=1
    start fingerprintd
